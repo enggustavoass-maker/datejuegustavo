@@ -6,7 +6,7 @@
 
 const APP_CONFIG = {
   // Senha de acesso (troque quando quiser — é só editar esta linha)
-  PASSWORD: "atequenaoemaideia",
+  PASSWORD: "atequenaoemaideia.",
 
   // Textos da tela 1 (terminal)
   TERMINAL_LINES: [
