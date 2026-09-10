@@ -12,6 +12,6 @@
 // ============================================================
 
 window.TELEGRAM_CONFIG = {
-  token: "8753213972:AAHxKOCsilpg1caePLboKUxyIYfJr88wOFE",
-  chatId: "8663031880"
+  token: "TOKEN_ID_TELEGRAM",
+  chatId: "CHAT_ID_TELEGRAM"
 };
