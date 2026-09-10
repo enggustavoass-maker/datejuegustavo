@@ -11,7 +11,7 @@ const APP_CONFIG = {
   // Textos da tela 1 (terminal)
   TERMINAL_LINES: [
     "Oi Ju! Que bom que você está aqui :)",
-    "Para continuar, digite sua senha:"
+    "Para continuar, digite a senha:"
   ],
   TERMINAL_WRONG_PASSWORD: "Senha incorreta. Tente novamente.",
   TERMINAL_PROMPT_LABEL: "senha:",
