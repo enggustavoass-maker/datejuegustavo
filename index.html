@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Oi Ju!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TELA 1 — Terminal / autenticação -->
+  <section id="screen-terminal" class="screen screen--terminal is-active">
+    <div class="terminal">
+      <div id="terminal-lines" class="terminal__lines"></div>
+      <div id="terminal-error" class="terminal__error" aria-live="polite"></div>
+      <div class="terminal__prompt-line">
+        <span class="terminal__prompt-label" id="prompt-label">senha:</span>
+        <span class="terminal__input-wrap">
+          <input
+            type="password"
+            id="password-input"
+            class="terminal__input"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="Digite sua senha"
+          >
+          <span class="terminal__cursor" aria-hidden="true"></span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 2 — Perguntas -->
+  <section id="screen-questions" class="screen screen--questions">
+    <div class="questions">
+      <header class="questions__header">
+        <div class="questions__progress" id="questions-progress" aria-live="polite"></div>
+        <div class="questions__progress-track">
+          <div class="questions__progress-fill" id="questions-progress-fill"></div>
+        </div>
+      </header>
+
+      <div class="questions__card">
+        <div class="questions__image-wrap" id="question-image-wrap">
+          <img id="question-image" class="questions__image" src="" alt="">
+        </div>
+
+        <div class="questions__body">
+          <p id="question-text" class="questions__text"></p>
+
+            <div class="questions__answer" id="question-answer-wrap">
+              <input
+                type="range"
+                min="1"
+                max="10"
+                step="1"
+                value="5"
+                id="question-slider"
+                class="questions__slider"
+                aria-label="Nota de 1 a 10"
+              >
+              <div class="questions__scale">
+                <span>1</span>
+                <span id="question-value" class="questions__value">5</span>
+                <span>10</span>
+              </div>
+            </div>
+
+            <div class="questions__final" id="questions-final" hidden>
+              <textarea
+                id="final-comment"
+                class="questions__final-textarea"
+                rows="5"
+                placeholder="Fique à vontade (opcional)"
+              ></textarea>
+            </div>
+
+            <button id="question-next" class="questions__next" type="button">Próxima</button>
+            <button id="question-back" class="questions__back" type="button">← Voltar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 3 — Agradecimento -->
+  <section id="screen-done" class="screen screen--done">
+    <div class="done">
+      <div class="done__mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="56" height="56">
+          <path d="M14 33 L27 46 L50 18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1 id="done-title" class="done__title"></h1>
+      <p id="done-text" class="done__text"></p>
+    </div>
+  </section>
+
+  <script src="config.js"></script>
+  <script src="questions.js"></script>
+  <script src="secrets.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

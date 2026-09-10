@@ -1,0 +1,50 @@
+name: Deploy site para o GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Gerar secrets.js a partir dos Secrets do repositório
+        run: |
+          cat <<EOF > secrets.js
+          window.TELEGRAM_CONFIG = {
+            token: "${{ secrets.TELEGRAM_BOT_TOKEN }}",
+            chatId: "${{ secrets.TELEGRAM_CHAT_ID }}"
+          };
+          EOF
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empacotar site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

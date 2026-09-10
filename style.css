@@ -1,0 +1,409 @@
+/* ============================================================
+   Tokens
+   ============================================================ */
+:root {
+  --amber: #ffb347;
+  --amber-dim: #b97e2c;
+  --term-bg: #0a0a08;
+
+  --cream: #f5efe6;
+  --teal: #134e4a;
+  --teal-deep: #0c3532;
+  --terracotta: #c1502e;
+  --ink: #22302b;
+
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "Courier New", Courier, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ============================================================
+   Screen switching
+   ============================================================ */
+.screen {
+  display: none;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+.screen.is-active {
+  display: flex;
+}
+
+/* ============================================================
+   TELA 1 — Terminal
+   ============================================================ */
+.screen--terminal {
+  background: var(--term-bg);
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 20px 20px;
+}
+
+.screen--terminal::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 179, 71, 0.035) 0px,
+    rgba(255, 179, 71, 0.035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.terminal {
+  width: 100%;
+  max-width: 620px;
+  font-family: var(--mono);
+  color: var(--amber);
+  text-shadow: 0 0 6px rgba(255, 179, 71, 0.35);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.terminal__lines {
+  white-space: pre-wrap;
+}
+
+.terminal__lines .line {
+  overflow: hidden;
+  border-right: 2px solid transparent;
+  white-space: nowrap;
+  display: block;
+  width: 0;
+  animation: type-in 0.9s steps(40, end) forwards;
+}
+
+@keyframes type-in {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.terminal__error {
+  color: #ff6b5e;
+  min-height: 1.7em;
+  margin-top: 4px;
+}
+
+.terminal__prompt-line {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.terminal__prompt-label {
+  margin-right: 8px;
+}
+
+.terminal__prompt-label::before {
+  content: "> ";
+}
+
+.terminal__input-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 1;
+  min-width: 120px;
+}
+
+.terminal__input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 16px;
+  caret-color: var(--amber);
+  width: 100%;
+  padding: 0;
+  text-shadow: 0 0 6px rgba(255, 179, 71, 0.35);
+}
+
+.terminal__cursor {
+  width: 9px;
+  height: 1.1em;
+  background: var(--amber);
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+  flex-shrink: 0;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ============================================================
+   TELA 2 — Perguntas
+   ============================================================ */
+.screen--questions {
+  background: var(--cream);
+  color: var(--ink);
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 20px 40px;
+}
+
+.questions {
+  width: 100%;
+  max-width: 560px;
+  font-family: var(--sans);
+}
+
+.questions__header {
+  margin-bottom: 18px;
+}
+
+.questions__progress {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--teal);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.questions__progress-track {
+  height: 3px;
+  width: 100%;
+  background: rgba(19, 78, 74, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.questions__progress-fill {
+  height: 100%;
+  background: var(--terracotta);
+  width: 0%;
+  transition: width 0.35s ease;
+}
+
+.questions__card {
+  background: #fff;
+  border-radius: 28px 28px 6px 6px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(19, 78, 74, 0.14);
+}
+
+.questions__image-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--teal-deep);
+  overflow: hidden;
+}
+
+.questions__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.questions__image.is-loaded {
+  opacity: 1;
+}
+
+.questions__body {
+  padding: 28px 26px 30px;
+}
+
+.questions__text {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 26px;
+  color: var(--ink);
+}
+
+.questions__answer {
+  margin-bottom: 28px;
+}
+
+.questions__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: linear-gradient(to right, var(--teal) 0%, var(--teal) 50%, rgba(19,78,74,0.15) 50%);
+  outline: none;
+}
+
+.questions__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(193, 80, 46, 0.5);
+  cursor: pointer;
+}
+
+.questions__slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(193, 80, 46, 0.5);
+  cursor: pointer;
+}
+
+.questions__scale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(34, 48, 43, 0.5);
+}
+
+.questions__value {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--terracotta);
+}
+
+.questions__final {
+  margin-bottom: 26px;
+}
+
+.questions__final-textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 110px;
+  padding: 12px 14px;
+  border: 1px solid rgba(19, 78, 74, 0.2);
+  border-radius: 14px;
+  background: rgba(19, 78, 74, 0.03);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  outline: none;
+}
+
+.questions__final-textarea::placeholder {
+  color: rgba(34, 48, 43, 0.45);
+}
+
+.questions__final-textarea:focus {
+  border-color: var(--teal);
+  background: #fff;
+}
+
+.questions__next {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.questions__next:hover { background: var(--teal-deep); }
+.questions__next:active { transform: scale(0.98); }
+.questions__next:disabled { opacity: 0.6; cursor: default; }
+
+.questions__back {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  background: transparent;
+  color: var(--teal);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.questions__back:hover { text-decoration: underline; }
+
+.questions__back[hidden] { display: none; }
+
+/* ============================================================
+   TELA 3 — Agradecimento
+   ============================================================ */
+.screen--done {
+  background: var(--teal);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.done {
+  max-width: 420px;
+  color: var(--cream);
+  font-family: var(--sans);
+}
+
+.done__mark {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: rgba(245, 239, 230, 0.12);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+}
+
+.done__title {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.done__text {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* ============================================================
+   Responsivo — celular
+   ============================================================ */
+@media (max-width: 480px) {
+  .terminal { font-size: 14.5px; }
+  .questions__text { font-size: 22px; }
+  .questions__body { padding: 22px 20px 24px; }
+  .done__title { font-size: 26px; }
+}
